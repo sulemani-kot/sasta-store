@@ -40,26 +40,20 @@ jobs:
               r.save(f"{res}/mipmap-{d}/ic_launcher_round.png")
           PY
           rm -rf android/app/src/main/res/mipmap-anydpi-v26
-      - name: Splash screen (black + logo)
+      - name: Splash screen (plain green, no logo)
         run: |
           python3 - <<'PY'
           import glob,os,re
           from PIL import Image
           res="android/app/src/main/res"
-          logo=Image.open("icon.png").convert("RGB")
           for f in glob.glob(res+"/drawable*/splash.png"):
               w,h=Image.open(f).size
-              c=Image.new("RGB",(w,h),(74,43,224))
-              k=int(min(w,h)*.38)
-              c.paste(logo.resize((k,k),Image.LANCZOS),((w-k)//2,(h-k)//2))
-              c.save(f)
+              Image.new("RGB",(w,h),(0,107,78)).save(f)
           os.makedirs(res+"/drawable-nodpi",exist_ok=True)
-          c=Image.new("RGB",(432,432),(74,43,224))
-          c.paste(logo.resize((200,200),Image.LANCZOS),(116,116))
-          c.save(res+"/drawable-nodpi/splash_icon.png")
+          Image.new("RGBA",(432,432),(0,0,0,0)).save(res+"/drawable-nodpi/splash_icon.png")
           p=res+"/values/styles.xml"
           s=open(p).read()
-          s,n=re.subn(r'(<style name="AppTheme.NoActionBarLaunch"[^>]*>)',r'\1\n        <item name="windowSplashScreenBackground">#4A2BE0</item>\n        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>',s,count=1)
+          s,n=re.subn(r'(<style name="AppTheme.NoActionBarLaunch"[^>]*>)',r'\1\n        <item name="windowSplashScreenBackground">#006B4E</item>\n        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_icon</item>',s,count=1)
           open(p,"w").write(s)
           print("styles patched" if n else "styles NOT patched")
           PY
