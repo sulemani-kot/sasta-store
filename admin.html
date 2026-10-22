@@ -89,7 +89,7 @@ if(window.__th=="blue")themeApply("blue");
 const $=s=>document.querySelector(s);
 const e=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const rs=n=>"Rs. "+Number(n).toLocaleString("en-PK"),src=s=>s;
-const OW=location.hostname.split(".")[0],RP=location.pathname.split("/").filter(Boolean)[0]||"",API=`https://api.github.com/repos/${OW}/${RP}/contents/`;
+const GH=/github\.io$/.test(location.hostname),FB=(()=>{try{return localStorage.getItem("ss_repo")}catch(_){return null}})()||"sulemani-kot/sasta-store",OW=GH?location.hostname.split(".")[0]:FB.split("/")[0],RP=GH?(location.pathname.split("/").filter(Boolean)[0]||""):FB.split("/")[1],API=`https://api.github.com/repos/${OW}/${RP}/contents/`;
 let T="";try{T=localStorage.getItem("ss_tok")||""}catch(_){}let D={settings:{},banners:[],products:[],categories:[],services:[]},imgs=[];
 const toast=m=>{const t=$("#toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2500)};
 const comp=(f,w=700,q=.6)=>new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,w/i.width),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;{const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height)}r(c.toDataURL("image/jpeg",q))};i.onerror=()=>r(null);i.src=URL.createObjectURL(f)});

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sulemani-kot.github.io/sasta-store/sitemap.xml

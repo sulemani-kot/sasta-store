@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Page nahi mila - SASTA STORE</title>
+<style>
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;display:grid;place-items:center;padding:24px;background:#fff;color:#1d312a;font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;text-align:center}
+img{width:84px;height:84px;border-radius:22px;margin-bottom:18px}
+h1{font-size:56px;line-height:1;color:#0B3D91;letter-spacing:-1px}
+h2{font-size:20px;margin:10px 0 6px}
+p{color:#5b6b66;margin-bottom:22px}
+a.b{display:inline-block;background:#0B3D91;color:#fff;text-decoration:none;font-weight:700;padding:13px 26px;border-radius:99px}
+</style></head><body>
+<div>
+<img id="lg" alt="SASTA STORE" src="logo.png">
+<h1>404</h1>
+<h2>Ye page nahi mila</h2>
+<p>Link galat ho sakta hai ya page hata diya gaya hai.</p>
+<a class="b" id="home" href="https://sulemani-kot.github.io/sasta-store/">Store par wapas jayein</a>
+</div>
+<script>
+// GitHub Pages project site (/sasta-store/...) ya custom domain (/...) dono par sahi home link
+var h = /github\.io$/.test(location.hostname) ? "/" + (location.pathname.split("/")[1] || "") + "/" : "/";
+document.getElementById("home").href = h;
+document.getElementById("lg").src = h + "logo.png";
+</script>
+</body></html>
