@@ -1,0 +1,32 @@
+name: Product pages
+on:
+  workflow_dispatch:
+  push:
+    paths: ['data.json','index.html','gen_products.py']
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: product-pages
+  cancel-in-progress: false
+jobs:
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make product pages
+        run: python3 gen_products.py
+      - name: Save changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "product-pages-bot"
+          git config user.email "actions@github.com"
+          git add -A -- '*.html' sitemap.xml
+          if git diff --cached --quiet; then echo "Kuch badla nahi"; exit 0; fi
+          git commit -m "Update product pages"
+          for i in 1 2 3; do
+            git pull --rebase -q && git push && break
+            sleep 4
+          done
+          gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" > /dev/null 2>&1 || true
